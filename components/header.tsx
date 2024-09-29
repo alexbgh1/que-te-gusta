@@ -11,6 +11,8 @@ export default async function Header() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const avatarUrl = user?.user_metadata.avatar_url;
+
   return (
     <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
@@ -24,15 +26,15 @@ export default async function Header() {
           {user !== null ? (
             <form action={signOut} className="flex items-center gap-2">
               <Link href="/contactos">
-                <Image
-                  src={user.user_metadata.avatar_url}
-                  alt={"Avatar" + user.email}
-                  width={32}
-                  height={32}
-                  className="w-8 h-8 rounded-full border border-gray-300"
-                />
+                {avatarUrl ? (
+                  <Image src={avatarUrl} alt="Avatar" width={32} height={32} className="rounded-full" />
+                ) : (
+                  <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                    <span className="text-muted-foreground">?</span>
+                  </div>
+                )}
               </Link>
-              <Button>Sign Out</Button>
+              <Button>Salir</Button>
             </form>
           ) : (
             <Button asChild>

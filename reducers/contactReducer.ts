@@ -77,4 +77,4 @@ function contactReducer(state: State, action: Action): State {
 // Reducer
 const useContactReducer = () => useReducer(contactReducer, initialState);
 
-export { useContactReducer, contactReducer, initialState };
+export { useContactReducer, contactReducer, initialState, type State, type Action };

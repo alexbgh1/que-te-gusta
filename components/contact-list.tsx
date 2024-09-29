@@ -2,19 +2,18 @@
 "use client";
 
 import { useReducer, useEffect, useRef } from "react";
-import { X, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 import { contactReducer, initialState } from "@/reducers/contactReducer";
-import { addContact, addPreference, deletePreference } from "@/app/contactos/actions";
+import { addContact, deletePreference } from "@/app/contactos/actions";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import ContactPreferences from "./contact-preferences";
 
 import { Category, PlainContactListProps } from "@/types/custom";
+import CreatePreference from "./create-preference";
 
 interface ContactListProps {
   initialContacts: PlainContactListProps[];
@@ -47,26 +46,6 @@ export default function ContactList({ initialContacts, initialCategories }: Cont
       if (error instanceof Error) {
         toast.error(error.message);
       }
-    }
-  };
-
-  const addNewPreference = async () => {
-    if (!state.selectedContactId || !state.selectedCategory || !state.newKeyword) {
-      return toast.error("Selecciona un contacto y completa los campos");
-    }
-    try {
-      const newPreference = await addPreference(state.selectedContactId, state.selectedCategory.id, state.newKeyword);
-      dispatch({
-        type: "ADD_PREFERENCE",
-        payload: {
-          contactId: state.selectedContactId,
-          preference: { id: newPreference.id, keyword: state.newKeyword, category: state.selectedCategory.category },
-        },
-      });
-      toast.success("Preferencia añadida correctamente");
-    } catch (error) {
-      console.error("Error adding preference:", error);
-      toast.error("Error al añadir la preferencia");
     }
   };
 
@@ -119,48 +98,12 @@ export default function ContactList({ initialContacts, initialCategories }: Cont
       </div>
 
       {selectedContact && (
-        <ContactPreferences preferences={selectedContact.preferences} removePreference={removePreference} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+          <ContactPreferences preferences={selectedContact.preferences} removePreference={removePreference} />
+          <CreatePreference state={state} dispatch={dispatch} />
+        </div>
       )}
-
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button className="bg-muted text-muted-foreground rounded-lg p-3 flex items-center justify-center cursor-pointer hover:bg-muted/80 transition-colors">
-            <Plus />
-            <span>Añadir Preferencia</span>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <div className="grid gap-4">
-            <h4 className="font-medium leading-none">Agregar Preferencia</h4>
-            <Select
-              value={state.selectedCategory?.id.toString()}
-              onValueChange={(value) => {
-                const category = state.categories.find((cat) => cat.id === Number(value));
-                dispatch({ type: "SET_SELECTED_CATEGORY", payload: category || null });
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Categoría" />
-              </SelectTrigger>
-              <SelectContent>
-                {state.categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id.toString()}>
-                    {category.category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Input
-              placeholder="Keyword"
-              value={state.newKeyword}
-              onChange={(e) => dispatch({ type: "SET_NEW_KEYWORD", payload: e.target.value })}
-            />
-            <Button onClick={addNewPreference} className="mt-2">
-              Añadir
-            </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
+      <div className="text-sm text-muted-foreground">Haz clic en una preferencia para eliminarla.</div>
     </div>
   );
 }

@@ -1,8 +1,5 @@
-// components/ContactPreferences.tsx
-import React from "react";
 import { X } from "lucide-react";
 import { PlainPreference } from "@/types/custom";
-import { Button } from "@/components/ui/button";
 
 interface ContactPreferencesProps {
   preferences: PlainPreference[];
@@ -11,7 +8,7 @@ interface ContactPreferencesProps {
 
 export default function ContactPreferences({ preferences, removePreference }: ContactPreferencesProps) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+    <>
       {preferences.map((pref) => (
         <div
           key={pref.id}
@@ -31,6 +28,6 @@ export default function ContactPreferences({ preferences, removePreference }: Co
           </button>
         </div>
       ))}
-    </div>
+    </>
   );
 }
