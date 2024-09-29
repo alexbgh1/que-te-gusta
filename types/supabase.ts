@@ -49,59 +49,36 @@ export type Database = {
         }
         Relationships: []
       }
-      preferencecategorymapping: {
+      preferences: {
         Row: {
           category_id: number | null
+          contact_id: number
+          created_at: string
           id: number
-          preference_id: number | null
+          keyword: string
         }
         Insert: {
           category_id?: number | null
+          contact_id: number
+          created_at?: string
           id?: number
-          preference_id?: number | null
+          keyword: string
         }
         Update: {
           category_id?: number | null
+          contact_id?: number
+          created_at?: string
           id?: number
-          preference_id?: number | null
+          keyword?: string
         }
         Relationships: [
           {
-            foreignKeyName: "preferencecategorymapping_category_id_fkey"
+            foreignKeyName: "preferences_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "preferencecategory"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "preferencecategorymapping_preference_id_fkey"
-            columns: ["preference_id"]
-            isOneToOne: false
-            referencedRelation: "preferences"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      preferences: {
-        Row: {
-          contact_id: number
-          created_at: string
-          id: number
-          keyword: string | null
-        }
-        Insert: {
-          contact_id: number
-          created_at?: string
-          id?: number
-          keyword?: string | null
-        }
-        Update: {
-          contact_id?: number
-          created_at?: string
-          id?: number
-          keyword?: string | null
-        }
-        Relationships: [
           {
             foreignKeyName: "preferences_contact_id_fkey"
             columns: ["contact_id"]
@@ -115,19 +92,19 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          name: string | null
+          name: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
-          name?: string | null
+          name: string
           user_id: string
         }
         Update: {
           created_at?: string
           id?: number
-          name?: string | null
+          name?: string
           user_id?: string
         }
         Relationships: [
