@@ -58,7 +58,6 @@ function contactReducer(state: State, action: Action): State {
             ? { ...contact, preferences: [...contact.preferences, action.payload.preference] }
             : contact
         ),
-        selectedCategory: null,
         newKeyword: "",
       };
     case "REMOVE_PREFERENCE":
