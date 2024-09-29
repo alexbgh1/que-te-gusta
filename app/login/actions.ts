@@ -14,7 +14,7 @@ export async function signOut() {
 
 export async function oAuthSignIn(provider: Provider) {
   if (!provider) {
-    return redirect("/login?message=No provider selected");
+    return redirect("/login?message=No se proporcionó un proveedor de inicio de sesión");
   }
 
   const supabase = createClient();
@@ -27,7 +27,7 @@ export async function oAuthSignIn(provider: Provider) {
   });
 
   if (error) {
-    redirect("/login?message=Could not authenticate user");
+    redirect("/login?message=Error al iniciar sesión con el proveedor");
   }
 
   return redirect(data.url);

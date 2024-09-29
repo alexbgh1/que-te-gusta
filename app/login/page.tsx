@@ -23,6 +23,7 @@ export default async function Login({ searchParams }: { searchParams: { message:
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <OAuthButtons />
+          {searchParams.message && <p className="text-red-500 text-sm">{searchParams.message}</p>}
         </CardContent>
       </Card>
     </section>

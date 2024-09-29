@@ -8,6 +8,9 @@ export async function GET(request: Request) {
   // if "next" is in param, use it as the redirect URL
   const next = searchParams.get("next") ?? "/contactos";
 
+  console.log("Code:", code);
+  console.log("Next:", next);
+
   if (code) {
     const cookieStore = cookies();
     const supabase = createServerClient(
@@ -34,5 +37,5 @@ export async function GET(request: Request) {
   }
 
   // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/login?message=Could not login with provider`);
+  return NextResponse.redirect(`${origin}/login?message=No se pudo iniciar sesión con el proveedor`);
 }
