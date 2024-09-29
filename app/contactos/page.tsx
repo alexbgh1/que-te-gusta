@@ -1,5 +1,6 @@
 import ContactList from "@/components/contact-list"; // Componente client para mostrar y gestionar contactos
-import { getCategories, getContacts } from "./actions";
+import { getContacts } from "./actions";
+import { getCategories } from "@/app/categorias/actions";
 import { PlainContactListProps } from "@/types/custom";
 
 export default async function ContactosPage() {

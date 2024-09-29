@@ -9,6 +9,8 @@ import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "./ui/input";
 
+import { MAX_LENGTH_NEW_KEYWORD } from "@/constants/max-length";
+
 interface CreatePreferenceProps {
   state: State;
   dispatch: React.Dispatch<Action>;
@@ -33,6 +35,13 @@ const CreatePreference = ({ state, dispatch }: CreatePreferenceProps) => {
       console.error("Error adding preference:", error);
       toast.error("Error al añadir la preferencia");
     }
+  };
+
+  const handleKeywordChange = (value: string) => {
+    if (value.length > MAX_LENGTH_NEW_KEYWORD) {
+      return toast.error("La keyword no puede tener más de 20 caracteres");
+    }
+    dispatch({ type: "SET_NEW_KEYWORD", payload: value });
   };
 
   return (
@@ -64,11 +73,7 @@ const CreatePreference = ({ state, dispatch }: CreatePreferenceProps) => {
               ))}
             </SelectContent>
           </Select>
-          <Input
-            placeholder="Keyword"
-            value={state.newKeyword}
-            onChange={(e) => dispatch({ type: "SET_NEW_KEYWORD", payload: e.target.value })}
-          />
+          <Input placeholder="Keyword" value={state.newKeyword} onChange={(e) => handleKeywordChange(e.target.value)} />
           <Button onClick={addNewPreference} className="mt-2">
             Añadir
           </Button>

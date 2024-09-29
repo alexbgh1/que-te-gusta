@@ -10,7 +10,6 @@ export interface ContactListProps {
   name: string;
   preferences: PreferenceProps[];
 }
-[];
 
 export interface PreferenceProps {
   id: number;

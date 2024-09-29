@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { Category, ContactListProps, Preference } from "@/types/custom";
+import { ContactListProps, Preference } from "@/types/custom";
 
 /**
  *
@@ -49,17 +49,6 @@ export async function getContacts() {
   return { contacts, contactsError };
 }
 
-// [GET] Obtener categorías
-export async function getCategories() {
-  const supabase = createClient();
-
-  const resCategories = await supabase.from("preferencecategory").select(`id, category`);
-  const categories: Category[] | null = resCategories.data;
-  const categoriesError = resCategories.error;
-
-  return { categories, categoriesError };
-}
-
 // [POST] Agregar contacto
 export async function addContact(name: string) {
   const supabase = createClient();
@@ -96,6 +85,7 @@ export async function deleteContact(contactId: number) {
   const { error } = await supabase.from("usercontacts").delete().match({ id: contactId });
 
   if (error) {
+    console.log(error);
     throw new Error("Error al eliminar el contacto");
   }
 
@@ -104,7 +94,7 @@ export async function deleteContact(contactId: number) {
 
 /**
  *
- * Preferencias
+ * Preferencias del Contacto
  *
  */
 
@@ -156,7 +146,6 @@ export async function deletePreference(preferenceId: number) {
 export async function updatePreference(preference: Preference) {
   const supabase = createClient();
 
-  // Obtener el usuario autenticado
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -165,7 +154,6 @@ export async function updatePreference(preference: Preference) {
     throw new Error("El usuario no está autenticado");
   }
 
-  // Actualizar la preferencia en la base de datos
   const { error } = await supabase
     .from("preferences")
     .update({ keyword: preference.keyword, category_id: preference.category_id })
