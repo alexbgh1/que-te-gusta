@@ -9,7 +9,7 @@ const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Qué te gusta?",
-  description: "Una aplicación para guardar los gustos de tus amigos",
+  description: "Una aplicación para guardar los gustos de tus amigos y familiares",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

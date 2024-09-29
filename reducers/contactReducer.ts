@@ -11,7 +11,8 @@ type Action =
   | { type: "SET_NEW_KEYWORD"; payload: string }
   | { type: "ADD_CONTACT"; payload: PlainContactListProps }
   | { type: "ADD_PREFERENCE"; payload: { contactId: number; preference: PlainPreference } }
-  | { type: "REMOVE_PREFERENCE"; payload: { contactId: number; preferenceId: number } };
+  | { type: "REMOVE_PREFERENCE"; payload: { contactId: number; preferenceId: number } }
+  | { type: "UPDATE_CONTACT"; payload: { id: number; name: string } };
 
 // Definir el estado inicial
 interface State {
@@ -67,6 +68,13 @@ function contactReducer(state: State, action: Action): State {
           contact.id === action.payload.contactId
             ? { ...contact, preferences: contact.preferences.filter((pref) => pref.id !== action.payload.preferenceId) }
             : contact
+        ),
+      };
+    case "UPDATE_CONTACT":
+      return {
+        ...state,
+        contacts: state.contacts.map((contact) =>
+          contact.id === action.payload.id ? { ...contact, name: action.payload.name } : contact
         ),
       };
     default:

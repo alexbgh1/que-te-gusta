@@ -92,6 +92,27 @@ export async function deleteContact(contactId: number) {
   revalidatePath("/contactos");
 }
 
+// [PUT] Actualizar contacto
+export async function updateContact(contactId: number, name: string) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("El usuario no está autenticado");
+  }
+
+  const { error } = await supabase.from("usercontacts").update({ name }).match({ id: contactId });
+
+  if (error) {
+    console.log(error);
+    throw new Error("Error al actualizar el contacto");
+  }
+
+  revalidatePath("/contactos");
+}
+
 /**
  *
  * Preferencias del Contacto

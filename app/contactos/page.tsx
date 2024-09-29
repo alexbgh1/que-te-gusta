@@ -32,7 +32,7 @@ export default async function ContactosPage() {
 
   return (
     <section className="p-3 pt-6 max-w-3xl w-full flex flex-col gap-4">
-      <h1 className="text-3xl font-bold mb-6">Contactos y Preferencias</h1>
+      <h1 className="text-3xl font-bold mb-6">Contactos y preferencias</h1>
       <ContactList initialContacts={formattedContacts} initialCategories={categories || []} />
     </section>
   );

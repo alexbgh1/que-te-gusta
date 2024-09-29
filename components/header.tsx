@@ -17,9 +17,9 @@ export default async function Header() {
     <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <nav className="flex items-center space-x-2  lg:space-x-6">
-          <a className="sm:mr-6 flex items-center space-x-2" href="/">
-            <span className="font-bold">Qué te gusta?</span>
-          </a>
+          <Link className="sm:mr-6 flex items-center space-x-2" href="/">
+            <span className="font-bold">Qué te gusta?</span> 🤔
+          </Link>
           <Link href="/contactos">Contactos</Link>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">

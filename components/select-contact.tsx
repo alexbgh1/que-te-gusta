@@ -1,10 +1,11 @@
-import React from "react";
-import { Trash } from "lucide-react"; // Icono para el botón de eliminar
-import { toast } from "sonner"; // Librería para las notificaciones
+import React, { useState } from "react";
+
+import { toast } from "sonner";
 import { State, Action } from "@/reducers/contactReducer";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Button } from "@/components/ui/button"; // Importa el componente de botón de tu proyecto
-import { deleteContact } from "@/app/contactos/actions"; // Importa la función de eliminación
+import { deleteContact, updateContact } from "@/app/contactos/actions";
+import RemoveContact from "./remove-contact";
+import EditContact from "./edit-contact";
 
 interface SelectContactProps {
   state: State;
@@ -47,11 +48,10 @@ const SelectContact = ({ state, dispatch }: SelectContactProps) => {
       </Select>
 
       {state.selectedContactId && (
-        <Button variant="destructive" className="ml-2" onClick={() => handleDeleteContact(state.selectedContactId!)}>
-          <Trash className="h-4 w-4" />
-          <span className="sr-only sm:hidden">Eliminar contacto</span>
-          <span className="hidden sm:block">Eliminar contacto</span>
-        </Button>
+        <>
+          <EditContact state={state} dispatch={dispatch} />
+          <RemoveContact handleDeleteContact={() => handleDeleteContact(state.selectedContactId!)} />
+        </>
       )}
     </div>
   );
