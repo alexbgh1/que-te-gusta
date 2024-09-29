@@ -26,7 +26,7 @@ export default async function ContactosPage() {
       preferences: contact.preferences.map((pref) => ({
         id: pref.id,
         keyword: pref.keyword,
-        category: pref.preferencecategory.category,
+        category: pref.preferencecategory?.category || "Sin categoría",
       })),
     })) || [];
 

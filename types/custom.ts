@@ -16,7 +16,7 @@ export interface PreferenceProps {
   keyword: string;
   preferencecategory: {
     category: string;
-  };
+  } | null;
 }
 
 export interface PlainContactListProps {
