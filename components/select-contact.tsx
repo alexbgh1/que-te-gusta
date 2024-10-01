@@ -35,7 +35,7 @@ const SelectContact = ({ state, dispatch }: SelectContactProps) => {
         value={state.selectedContactId?.toString() || ""}
         onValueChange={(value) => dispatch({ type: "SELECT_CONTACT", payload: Number(value) })}
       >
-        <SelectTrigger className="w-full sm:w-[200px]">
+        <SelectTrigger className="w-[200px]">
           <SelectValue placeholder="Selecciona un contacto" />
         </SelectTrigger>
         <SelectContent>

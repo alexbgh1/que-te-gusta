@@ -35,8 +35,8 @@ const NewContact = ({ state, dispatch }: NewContactProps) => {
     <div className="flex items-center space-x-4">
       <Input
         placeholder="Nuevo contacto"
-        className="w-2/3"
-        maxLength={25}
+        className="w-[200px]"
+        maxLength={MAX_LENGTH_NEW_CONTACT_NAME}
         value={state.newContactName}
         onChange={(e) => handleContactChange(e.target.value)}
       />
