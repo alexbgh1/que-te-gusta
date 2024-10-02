@@ -57,7 +57,7 @@ export function PreferenceBox({ category, keyword, onRemove }: PreferenceBoxProp
         </div>
       </div>
       <button
-        className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="w-4 h-4 flex items-center justify-center flex-col absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
         onClick={onRemove}
       >
         <X className="h-3 w-3" />
